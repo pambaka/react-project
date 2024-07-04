@@ -25,6 +25,7 @@ input {
   outline: none;
 }
 
-input {
+input,
+section {
   box-sizing: border-box;
 }
