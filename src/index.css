@@ -2,6 +2,7 @@
   font-family: Inter, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  color: #283a46;
 }
 
 body {
@@ -25,7 +26,14 @@ input {
   outline: none;
 }
 
+div,
 input,
 section {
   box-sizing: border-box;
+}
+
+p,
+h2 {
+  margin: 0;
+  padding: 0;
 }
