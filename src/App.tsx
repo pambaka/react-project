@@ -4,12 +4,15 @@ import SearchSection from './search-section/search-section';
 import ResultsSection from './results-section/results-section';
 import { SEARCH_VALUE, URL } from './consts';
 import { Character } from './types';
+import Loader from './loader/loader';
 
 class App extends Component {
-  state: { people: Character[] } = { people: [] };
+  state: { people: Character[] | undefined } = { people: undefined };
 
   getPeople = async (searchValue: string | null = '') => {
-    const searchQuery = searchValue ? `/?search=${searchValue}` : '';
+    const searchQuery = searchValue ? `/?search=${searchValue.trim()}` : '';
+
+    Loader.show();
 
     await fetch(`${URL.people}${searchQuery}`)
       .then((res) => {
@@ -21,7 +24,10 @@ class App extends Component {
         console.log(data);
         if (data) this.setState({ people: data.results });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        Loader.hide();
+      });
   };
 
   componentDidMount(): void {
@@ -29,11 +35,16 @@ class App extends Component {
     this.getPeople(searchValue);
   }
 
+  componentDidUpdate(): void {
+    Loader.hide();
+  }
+
   render(): ReactNode {
     return (
       <>
         <SearchSection fetchData={this.getPeople} />
         <ResultsSection results={this.state.people} />
+        <Loader></Loader>
       </>
     );
   }

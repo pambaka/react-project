@@ -11,3 +11,8 @@
   scrollbar-color: #d4e0e7 #fafbfc;
   word-wrap: break-word;
 }
+
+.not-found {
+  font-size: 1.2rem;
+  color: #787878;
+}

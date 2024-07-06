@@ -14,13 +14,17 @@
   text-align: center;
   font-size: 1.2rem;
   font-weight: 500;
+  color: #4b6f85;
 }
 
 .card__description {
   display: flex;
   flex-direction: column;
+  color: #646464;
 }
 
 .card__description span {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #446478;
 }

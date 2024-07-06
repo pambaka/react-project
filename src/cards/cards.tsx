@@ -2,7 +2,7 @@ import './cards.css';
 import { Character } from '../types';
 import { Component, ReactNode } from 'react';
 
-class Cards extends Component<{ people: Character[] }> {
+class Cards extends Component<{ people: Character[] | undefined }> {
   addCard(char: Character): ReactNode {
     return (
       <div className="card" key={char.name}>
@@ -29,7 +29,7 @@ class Cards extends Component<{ people: Character[] }> {
   }
 
   render(): ReactNode {
-    return <>{this.props.people.map((char: Character) => this.addCard(char))}</>;
+    return <>{this.props.people && this.props.people.map((char: Character) => this.addCard(char))}</>;
   }
 }
 
