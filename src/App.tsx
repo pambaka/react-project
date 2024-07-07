@@ -5,6 +5,9 @@ import ResultsSection from './results-section/results-section';
 import { SEARCH_VALUE, URL } from './consts';
 import { Character } from './types';
 import Loader from './loader/loader';
+import ErrorBoundary from './error-boundary';
+import ErrorButton from './error-button/error-button';
+import FallbackUi from './fallback-ui/fallback-ui';
 
 class App extends Component {
   state: { people: Character[] | undefined } = { people: undefined };
@@ -16,16 +19,13 @@ class App extends Component {
 
     await fetch(`${URL.people}${searchQuery}`)
       .then((res) => {
-        console.log(res);
         if (!res.ok) return undefined;
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         if (data) this.setState({ people: data.results });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         Loader.hide();
       });
   };
@@ -42,9 +42,12 @@ class App extends Component {
   render(): ReactNode {
     return (
       <>
-        <SearchSection fetchData={this.getPeople} />
-        <ResultsSection results={this.state.people} />
-        <Loader></Loader>
+        <ErrorBoundary fallback={<FallbackUi />}>
+          <SearchSection fetchData={this.getPeople} />
+          <ResultsSection results={this.state.people} />
+          <ErrorButton buttonText="" callback={() => {}}></ErrorButton>
+          <Loader></Loader>
+        </ErrorBoundary>
       </>
     );
   }

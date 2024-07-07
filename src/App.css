@@ -1,9 +1,13 @@
 #root {
   width: 100%;
-  max-width: 900px;
+  max-width: 920px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+}
+
+#root button:nth-child(3) {
+  align-self: flex-end;
 }
