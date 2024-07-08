@@ -22,7 +22,7 @@ class App extends Component {
         if (!res.ok) return undefined;
         return res.json();
       })
-      .then((data) => {
+      .then((data: { results: Character[] } | undefined) => {
         if (data) this.setState({ people: data.results });
       })
       .catch(() => {
@@ -30,9 +30,9 @@ class App extends Component {
       });
   };
 
-  componentDidMount(): void {
+  async componentDidMount(): Promise<void> {
     const searchValue: string | null = localStorage.getItem(SEARCH_VALUE);
-    this.getPeople(searchValue);
+    await this.getPeople(searchValue);
   }
 
   componentDidUpdate(): void {

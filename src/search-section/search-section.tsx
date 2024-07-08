@@ -3,10 +3,10 @@ import { Component, ReactNode, createRef } from 'react';
 import Button from '../button/button';
 import { SEARCH_VALUE } from '../consts';
 
-class SearchSection extends Component<{ fetchData: (value: string | undefined) => void }> {
+class SearchSection extends Component<{ fetchData: (value: string | undefined) => Promise<void> }> {
   inputRef = createRef<HTMLInputElement>();
 
-  handleClick = () => {
+  handleClick = async () => {
     const value: string | undefined = this.inputRef.current?.value;
 
     if (value) {
@@ -15,7 +15,7 @@ class SearchSection extends Component<{ fetchData: (value: string | undefined) =
       localStorage.removeItem(SEARCH_VALUE);
     }
 
-    this.props.fetchData(value);
+    await this.props.fetchData(value);
   };
 
   componentDidMount(): void {
@@ -28,7 +28,12 @@ class SearchSection extends Component<{ fetchData: (value: string | undefined) =
       <>
         <section className="search-section">
           <input className="search-input" type="text" ref={this.inputRef} />
-          <Button buttonText={'Search'} callback={this.handleClick} />
+          <Button
+            buttonText={'Search'}
+            callback={() => {
+              this.handleClick().catch(() => {});
+            }}
+          />
         </section>
       </>
     );

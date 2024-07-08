@@ -8,7 +8,7 @@ class ErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error(`${error} \n Component Stack: ${errorInfo.componentStack}`);
+    console.error(`${error.toString()} \n Component Stack: ${errorInfo.componentStack}`);
   }
 
   render(): ReactNode {
