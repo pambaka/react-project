@@ -1,13 +1,11 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import Button from '../button/button';
 
-class ErrorButton extends Button {
-  state = { isButtonPressed: false };
+function ErrorButton(): ReactNode {
+  const [isButtonPressed, setIsButtonPressed] = useState(false);
 
-  render(): ReactNode {
-    if (this.state.isButtonPressed) throw new Error('This is a fallback UI test');
-    else return <Button buttonText="Throw error" callback={() => this.setState({ isButtonPressed: true })}></Button>;
-  }
+  if (isButtonPressed) throw new Error('This is a fallback UI test');
+  else return <Button buttonText="Throw error" callback={() => setIsButtonPressed(true)}></Button>;
 }
 
 export default ErrorButton;

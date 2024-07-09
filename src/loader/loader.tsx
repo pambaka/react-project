@@ -1,24 +1,27 @@
 import './loader.css';
-import { Component, ReactNode, createRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 
-class Loader extends Component {
-  private static loaderRef = createRef<HTMLDivElement>();
+function Loader(props: { isLoading: boolean }): ReactNode {
+  const loaderRef = useRef<HTMLDivElement>(null);
 
-  static show = () => {
-    if (this.loaderRef.current) this.loaderRef.current.classList.add('visible');
+  const show = () => {
+    if (loaderRef.current) loaderRef.current.classList.add('visible');
   };
 
-  static hide = () => {
-    if (this.loaderRef.current) this.loaderRef.current.classList.remove('visible');
+  const hide = () => {
+    if (loaderRef.current) loaderRef.current.classList.remove('visible');
   };
 
-  render(): ReactNode {
-    return (
-      <div className="loader-backdrop" ref={Loader.loaderRef}>
-        <div className="loader"></div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (props.isLoading) show();
+    else hide();
+  });
+
+  return (
+    <div className="loader-backdrop" ref={loaderRef}>
+      <div className="loader"></div>
+    </div>
+  );
 }
 
 export default Loader;
