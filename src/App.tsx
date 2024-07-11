@@ -1,13 +1,13 @@
 import './App.css';
 import { Dispatch, ReactNode, useEffect, useState } from 'react';
-import SearchSection from './search-section/search-section';
-import ResultsSection from './results-section/results-section';
+import SearchSection from './components/search-section/search-section';
+import ResultsSection from './components/results-section/results-section';
 import { SEARCH_VALUE, URL } from './consts';
 import { Character } from './types';
-import Loader from './loader/loader';
+import Loader from './components/loader/loader';
 import ErrorBoundary from './error-boundary';
-import ErrorButton from './error-button/error-button';
-import FallbackUi from './fallback-ui/fallback-ui';
+import ErrorButton from './components/error-button/error-button';
+import FallbackUi from './components/fallback-ui/fallback-ui';
 
 function App(): ReactNode {
   const [people, setPeople]: [Character[] | undefined, Dispatch<Character[] | undefined>] = useState<

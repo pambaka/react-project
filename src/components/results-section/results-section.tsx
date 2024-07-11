@@ -1,6 +1,6 @@
 import './results-section.css';
 import Cards from '../cards/cards';
-import { Character } from '../types';
+import { Character } from '../../types';
 import { ReactNode } from 'react';
 
 function ResultsSection(props: { results: Character[] | undefined }): ReactNode {

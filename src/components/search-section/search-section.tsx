@@ -1,7 +1,7 @@
 import './search-section.css';
 import { ChangeEvent, ReactNode, useState } from 'react';
 import Button from '../button/button';
-import useLocalStorage from '../hooks/use-local-storage';
+import useLocalStorage from '../../hooks/use-local-storage';
 
 function SearchSection(props: { fetchData: (value: string | undefined) => Promise<void> }): ReactNode {
   const [searchValue, setSearchValue] = useLocalStorage();

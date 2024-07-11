@@ -1,5 +1,5 @@
 import './cards.css';
-import { Character } from '../types';
+import { Character } from '../../types';
 import { ReactNode } from 'react';
 
 function Cards(props: { people: Character[] | undefined }) {
