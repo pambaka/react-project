@@ -13,10 +13,15 @@
   transition: 0.2s;
 }
 
-.button:active {
+.button:active:not(:disabled) {
   height: calc(100% - 2px);
   box-shadow:
     0 -2px 0 #bbcdd9,
     0 -2px 0 #89a9bc inset;
   transition: 0.2s;
+}
+
+.button:disabled {
+  cursor: default;
+  filter: grayscale() opacity(0.5);
 }

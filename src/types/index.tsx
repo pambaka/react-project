@@ -6,3 +6,11 @@ export interface Character {
   skin_color: string;
   eye_color: string;
 }
+
+export interface SwResponse {
+  results: Character[];
+  next: 'string' | null;
+  previous: 'string' | null;
+}
+
+export type PageAction = 'increment' | 'decrement';
