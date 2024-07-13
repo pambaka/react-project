@@ -1,12 +1,13 @@
-import { URL } from '../consts';
+import { URLS } from '../consts';
 import { SwResponse } from '../types';
 
 async function fetchPeople(searchValue: string | null = '', pageNumber?: number): Promise<SwResponse | undefined> {
   let response: SwResponse | undefined;
-  let searchQuery = searchValue ? `/?search=${searchValue.trim()}` : '';
+  let searchQuery = '/?search=';
+  searchQuery += searchValue ? `${searchValue.trim()}` : '';
   searchQuery += pageNumber ? `&page=${pageNumber}` : '';
 
-  await fetch(`${URL.people}${searchQuery}`)
+  await fetch(`${URLS.people}${searchQuery}`)
     .then((res) => {
       if (!res.ok) {
         if (res.status === 404) return { results: [], next: null, previous: null };
