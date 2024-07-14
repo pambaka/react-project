@@ -31,10 +31,19 @@ function SearchSection(props: { fetchData: (value: string | undefined) => Promis
   return (
     <>
       <section className="search-section">
-        <input className="search-input" type="text" value={inputValue} onChange={handleChange}></input>
+        <input
+          className="search-input"
+          type="text"
+          value={inputValue}
+          onChange={handleChange}
+          onClick={(event: React.MouseEvent<HTMLElement>) => {
+            event.stopPropagation();
+          }}
+        ></input>
         <Button
           buttonText={'Search'}
-          callback={() => {
+          callback={(event: React.MouseEvent<HTMLElement>) => {
+            event.stopPropagation();
             handleClick().catch(() => {});
           }}
         />

@@ -5,6 +5,7 @@ export interface Character {
   hair_color: string;
   skin_color: string;
   eye_color: string;
+  url: string;
 }
 
 export interface SwResponse {

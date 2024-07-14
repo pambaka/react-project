@@ -1,5 +1,5 @@
 import './pagination.css';
-import { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import Button from '../button/button';
 import changeCurrentPageNumber from './change-current-page-number';
 import { PageAction } from '../../types';
@@ -33,11 +33,13 @@ function Pagination(props: {
     return newPage;
   }
 
-  function showPreviousPage() {
+  function showPreviousPage(event: React.MouseEvent<HTMLElement>) {
+    event.stopPropagation();
     setCurrentPage((prevPage) => updateCurrentPage(prevPage, 'decrement'));
   }
 
-  function showNextPage() {
+  function showNextPage(event: React.MouseEvent<HTMLElement>) {
+    event.stopPropagation();
     setCurrentPage((prevPage) => updateCurrentPage(prevPage, 'increment'));
   }
 
@@ -45,8 +47,6 @@ function Pagination(props: {
     const pageNum = Number(searchParams.get(PARAM.page));
     setCurrentPage(pageNum ? pageNum : 1);
   }, [searchParams]);
-
-  useEffect(() => {});
 
   return (
     <div className="pagination">

@@ -1,3 +1,4 @@
+import './main-page.css';
 import { Dispatch, ReactNode, useEffect, useState } from 'react';
 import { Character } from '../../types';
 import fetchPeople from '../../api/fetch-people';
@@ -7,7 +8,7 @@ import SearchSection from '../../components/search-section/search-section';
 import ResultsSection from '../../components/results-section/results-section';
 import Pagination from '../../components/pagination/pagination';
 import Loader from '../../components/loader/loader';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 function MainPage(): ReactNode {
   const [people, setPeople]: [Character[] | undefined, Dispatch<Character[] | undefined>] = useState<
@@ -19,6 +20,7 @@ function MainPage(): ReactNode {
   const [isPageReloaded, setIsPageReloaded] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const getPeople = async (searchValue: string | null = '', pageNumber?: number) => {
     try {
@@ -58,12 +60,17 @@ function MainPage(): ReactNode {
   }, [isPageReloaded, searchParams, setSearchParams]);
 
   return (
-    <>
+    <section
+      className="main-section"
+      onClick={() => {
+        navigate(`/?${searchParams.toString()}`);
+      }}
+    >
       <SearchSection fetchData={getPeople} />
       <ResultsSection results={people} />
       <Pagination fetchData={getPeople} isNextDisabled={isNextDisabled} isPrevDisabled={isPrevDisabled}></Pagination>
       <Loader isLoading={isLoading}></Loader>
-    </>
+    </section>
   );
 }
 
