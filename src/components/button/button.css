@@ -1,0 +1,27 @@
+.button {
+  width: 50%;
+  max-width: 160px;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #a2bbcb;
+  box-shadow: 0 -4px 0 #89a9bc inset;
+  color: #fafbfc;
+  font-size: 1.5rem;
+  transition: 0.2s;
+}
+
+.button:active:not(:disabled) {
+  height: calc(100% - 2px);
+  box-shadow:
+    0 -2px 0 #bbcdd9,
+    0 -2px 0 #89a9bc inset;
+  transition: 0.2s;
+}
+
+.button:disabled {
+  cursor: default;
+  filter: grayscale() opacity(0.5);
+}

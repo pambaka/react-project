@@ -1,0 +1,56 @@
+.loader-backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+  display: none;
+  place-content: center;
+}
+
+.loader {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.loader::before,
+.loader::after {
+  content: '';
+  display: block;
+  border: 5px solid #a2bbcb;
+  border-radius: 50%;
+  outline: 1px solid white;
+  box-shadow:
+    1px 1px 0px inset white,
+    1px -1px 0px inset white,
+    -1px 1px 0px inset white,
+    -1px -1px 0px inset white;
+  animation: pulse 3s linear infinite;
+}
+
+.loader::after {
+  animation-delay: -1.5s;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    width: 100px;
+    height: 100px;
+    opacity: 1;
+  }
+  50% {
+    width: 50px;
+    height: 50px;
+    opacity: 0.2;
+  }
+}
+
+.visible {
+  display: grid;
+}
