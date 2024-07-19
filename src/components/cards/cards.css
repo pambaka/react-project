@@ -14,7 +14,6 @@
 
 .card:hover {
   transform: scale(1.04);
-  transition: 0.5s;
 }
 
 .card__title {
@@ -34,4 +33,15 @@
   font-size: 1rem;
   font-weight: 500;
   color: #446478;
+}
+
+.card__checkbox {
+  align-self: flex-end;
+  accent-color: #638da8;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    transform: scale(1.5);
+  }
 }

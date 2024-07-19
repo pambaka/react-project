@@ -2,10 +2,13 @@ import './cards.css';
 import { Character } from '../../types';
 import { ReactNode } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToSelected } from '../../app/selected-cards-slice';
 
 function Cards(props: { people: Character[] | undefined }): ReactNode {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function addCard(char: Character): ReactNode {
     function showDetails(event: React.MouseEvent<HTMLElement>) {
@@ -16,6 +19,16 @@ function Cards(props: { people: Character[] | undefined }): ReactNode {
     function getCharId(url: string): string {
       const id: string = url.split('people/')[1].replace('/', '');
       return id;
+    }
+
+    function handleCheckboxClick(event: React.MouseEvent<HTMLInputElement>) {
+      event.stopPropagation();
+
+      const cart: HTMLElement | null = event.currentTarget.parentElement;
+      if (!cart) return;
+
+      const charId: string = cart.id;
+      dispatch(addToSelected({ id: charId }));
     }
 
     return (
@@ -29,6 +42,7 @@ function Cards(props: { people: Character[] | undefined }): ReactNode {
             eyes: <span>{char.eye_color}</span>
           </p>
         </div>
+        <input className="card__checkbox" type="checkbox" onClick={handleCheckboxClick}></input>
       </div>
     );
   }
