@@ -3,7 +3,7 @@ import { Character } from '../../types';
 import { ReactNode } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addToSelected } from '../../app/selected-cards-slice';
+import { addToSelected, removeFromSelected } from '../../app/selected-cards-slice';
 
 function Cards(props: { people: Character[] | undefined }): ReactNode {
   const [searchParams] = useSearchParams();
@@ -21,14 +21,14 @@ function Cards(props: { people: Character[] | undefined }): ReactNode {
       return id;
     }
 
-    function handleCheckboxClick(event: React.MouseEvent<HTMLInputElement>) {
+    function handleCheckboxClick(event: React.MouseEvent<HTMLInputElement>): void {
       event.stopPropagation();
 
-      const cart: HTMLElement | null = event.currentTarget.parentElement;
-      if (!cart) return;
+      const card: HTMLElement | null = event.currentTarget.parentElement;
+      if (!card) return;
 
-      const charId: string = cart.id;
-      dispatch(addToSelected({ id: charId }));
+      if (event.currentTarget.checked) dispatch(addToSelected({ id: card.id }));
+      else dispatch(removeFromSelected({ id: card.id }));
     }
 
     return (
