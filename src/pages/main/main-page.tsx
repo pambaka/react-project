@@ -9,6 +9,7 @@ import ResultsSection from '../../components/results-section/results-section';
 import Pagination from '../../components/pagination/pagination';
 import Loader from '../../components/loader/loader';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import Flyout from '../../components/flyout/flyout';
 
 function MainPage(): ReactNode {
   const [people, setPeople]: [Character[] | undefined, Dispatch<Character[] | undefined>] = useState<
@@ -69,6 +70,7 @@ function MainPage(): ReactNode {
       <SearchSection fetchData={getPeople} />
       <ResultsSection results={people} />
       <Pagination fetchData={getPeople} isNextDisabled={isNextDisabled} isPrevDisabled={isPrevDisabled}></Pagination>
+      <Flyout></Flyout>
       <Loader isLoading={isLoading}></Loader>
     </section>
   );
