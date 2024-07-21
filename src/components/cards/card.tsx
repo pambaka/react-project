@@ -1,19 +1,23 @@
 import './card.css';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Character } from '../../types';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import store from '../../app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreRootState } from '../../app/store';
 import getCharacterId from './get-character-id';
 import { addToSelected, removeFromSelected } from '../../app/selected-cards-slice';
 
 function Card({ char }: { char: Character }): ReactNode {
-  const selectedCards = store.getState().selectedCards.cards;
+  const selectedCards = useSelector<StoreRootState, string[]>((state) => state.selectedCards.cards);
   const charId = getCharacterId(char.url);
   const [isSelected, setIsSelected] = useState(selectedCards.includes(charId));
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIsSelected(selectedCards.includes(charId));
+  }, [selectedCards, charId]);
 
   function showDetails(event: React.MouseEvent<HTMLElement>) {
     event.stopPropagation();
