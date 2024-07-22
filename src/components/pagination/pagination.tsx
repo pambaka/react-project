@@ -1,35 +1,25 @@
 import './pagination.css';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import Button from '../button/button';
 import changeCurrentPageNumber from './change-current-page-number';
 import { PageAction } from '../../types';
 import { useSearchParams } from 'react-router-dom';
 import { PARAM } from '../../consts';
+import isValidPageNumber from '../../utils/is-valid-page-number';
 
-function Pagination(props: {
-  fetchData: (searchValue: string, pageNumber?: number) => Promise<void>;
-  isNextDisabled: boolean;
-  isPrevDisabled: boolean;
-}): ReactNode {
+function Pagination(props: { isNextDisabled: boolean; isPrevDisabled: boolean }): ReactNode {
   const [searchParams, setSearchParams] = useSearchParams({});
   const [currentPage, setCurrentPage] = useState(() => {
-    const pageNum = Number(searchParams.get(PARAM.page));
-    return pageNum;
+    const page = searchParams.get(PARAM.page);
+    return isValidPageNumber(page) ? Number(page) : 1;
   });
 
   function updateCurrentPage(prevPage: number, action: PageAction) {
     const newPage = changeCurrentPageNumber(prevPage, action);
 
     const searchValue = searchParams.get(PARAM.search) ?? '';
-    if (newPage !== prevPage) {
-      const func = async () => {
-        await props.fetchData(searchValue, newPage);
-      };
 
-      func().catch(() => {});
-    }
-
-    setSearchParams({ search: searchValue, page: `${newPage}` });
+    setSearchParams({ [PARAM.search]: searchValue, [PARAM.page]: `${newPage}` });
     return newPage;
   }
 
@@ -42,11 +32,6 @@ function Pagination(props: {
     event.stopPropagation();
     setCurrentPage((prevPage) => updateCurrentPage(prevPage, 'increment'));
   }
-
-  useEffect(() => {
-    const pageNum = Number(searchParams.get(PARAM.page));
-    setCurrentPage(pageNum ? pageNum : 1);
-  }, [searchParams]);
 
   return (
     <div className="pagination">

@@ -1,7 +1,5 @@
 import './main-page.css';
-import { Dispatch, ReactNode, useEffect, useState } from 'react';
-import { Character } from '../../types';
-import fetchPeople from '../../api/fetch-people';
+import { ReactNode, useEffect, useState } from 'react';
 import isPageButtonDisabled from '../../components/pagination/is-page-button-disabled';
 import { PARAM, SEARCH_VALUE } from '../../consts';
 import SearchSection from '../../components/search-section/search-section';
@@ -10,12 +8,10 @@ import Pagination from '../../components/pagination/pagination';
 import Loader from '../../components/loader/loader';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Flyout from '../../components/flyout/flyout';
+import api from '../../api/api';
+import isValidPageNumber from '../../utils/is-valid-page-number';
 
 function MainPage(): ReactNode {
-  const [people, setPeople]: [Character[] | undefined, Dispatch<Character[] | undefined>] = useState<
-    Character[] | undefined
-  >(undefined);
-  const [isLoading, setIsLoading]: [boolean, Dispatch<boolean>] = useState(true);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
   const [isPrevDisabled, setIsPrevDisabled] = useState(false);
   const [isPageReloaded, setIsPageReloaded] = useState(false);
@@ -23,20 +19,15 @@ function MainPage(): ReactNode {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const getPeople = async (searchValue: string | null = '', pageNumber?: number) => {
-    try {
-      setIsLoading(true);
+  const { data: response, isFetching } = api.useGetSearchedQuery({
+    searchValue: searchParams.get(PARAM.search),
+    pageNumber: searchParams.get(PARAM.page),
+  });
 
-      const response = await fetchPeople(searchValue, pageNumber);
-      setIsNextDisabled(isPageButtonDisabled(response?.next));
-      setIsPrevDisabled(isPageButtonDisabled(response?.previous));
-
-      const people = response?.results ?? undefined;
-      setPeople(people);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  useEffect(() => {
+    setIsNextDisabled(isPageButtonDisabled(response?.next));
+    setIsPrevDisabled(isPageButtonDisabled(response?.previous));
+  }, [response]);
 
   useEffect(() => {
     if (isPageReloaded) return;
@@ -47,7 +38,7 @@ function MainPage(): ReactNode {
 
     const search = searchParams.get(PARAM.search);
     const page = searchParams.get(PARAM.page);
-    if (page === '0') {
+    if (!isValidPageNumber(page)) {
       searchParams.delete(PARAM.page);
       setSearchParams(searchParams);
     }
@@ -55,10 +46,8 @@ function MainPage(): ReactNode {
     if (!search && !page) {
       searchValue = localStorage.getItem(SEARCH_VALUE) ?? '';
       if (searchValue) setSearchParams({ [PARAM.search]: searchValue });
-    } else searchValue = search ?? '';
-
-    getPeople(searchValue, Number(page) ? Number(page) : undefined).catch(() => {});
-  }, [isPageReloaded, searchParams, setSearchParams]);
+    }
+  }, [isPageReloaded, searchParams, setSearchParams, response]);
 
   return (
     <section
@@ -67,11 +56,11 @@ function MainPage(): ReactNode {
         navigate(`/?${searchParams.toString()}`);
       }}
     >
-      <SearchSection fetchData={getPeople} />
-      <ResultsSection results={people} />
-      <Pagination fetchData={getPeople} isNextDisabled={isNextDisabled} isPrevDisabled={isPrevDisabled}></Pagination>
-      <Flyout></Flyout>
-      <Loader isLoading={isLoading}></Loader>
+      <SearchSection />
+      <ResultsSection results={response?.results} />
+      <Pagination isNextDisabled={isNextDisabled} isPrevDisabled={isPrevDisabled} />
+      <Flyout />
+      <Loader isLoading={isFetching} />
     </section>
   );
 }

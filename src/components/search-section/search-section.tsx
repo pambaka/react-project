@@ -4,8 +4,9 @@ import Button from '../button/button';
 import useLocalStorage from '../../hooks/use-local-storage';
 import { useSearchParams } from 'react-router-dom';
 import { PARAM } from '../../consts';
+import isValidPageNumber from '../../utils/is-valid-page-number';
 
-function SearchSection(props: { fetchData: (value: string | undefined) => Promise<void> }): ReactNode {
+function SearchSection(): ReactNode {
   const [searchValue, setSearchValue] = useLocalStorage();
 
   const [searchParams, setSearchParams] = useSearchParams({});
@@ -13,15 +14,13 @@ function SearchSection(props: { fetchData: (value: string | undefined) => Promis
   const [inputValue, setInputValue] = useState(() => {
     const search = searchParams.get(PARAM.search);
     const page = searchParams.get(PARAM.page);
-    if (!search && !page) return searchValue;
+    if (!search && !isValidPageNumber(page)) return searchValue;
     else return search ?? '';
   });
 
-  const handleClick = async () => {
+  const handleClick = () => {
     setSearchValue(inputValue);
     setSearchParams({ search: inputValue });
-
-    await props.fetchData(inputValue);
   };
 
   const handleChange = (event: ChangeEvent) => {
@@ -44,7 +43,7 @@ function SearchSection(props: { fetchData: (value: string | undefined) => Promis
           buttonText={'Search'}
           callback={(event: React.MouseEvent<HTMLElement>) => {
             event.stopPropagation();
-            handleClick().catch(() => {});
+            handleClick();
           }}
         />
       </section>
