@@ -1,4 +1,4 @@
-import { URLS } from '../../consts';
+import { URLS } from '../consts';
 
 function getCharacterId(url: string): string {
   return url.split(`${URLS.people}/`)[1].replace('/', '');

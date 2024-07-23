@@ -34,6 +34,10 @@
     font-size: 1.1rem;
     color: #fafbfc;
   }
+
+  a {
+    text-decoration: none;
+  }
 }
 
 @keyframes appear {
