@@ -7,7 +7,7 @@
   place-content: center;
   padding: 5px 10px;
   border-radius: 4px;
-  background-color: #a2bbcb;
+  background-color: var(--color-bg);
   box-shadow: 0 -4px 0 #89a9bc inset;
   color: #fafbfc;
   font-size: 1.5rem;
@@ -19,7 +19,6 @@
   box-shadow:
     0 -2px 0 #bbcdd9,
     0 -2px 0 #89a9bc inset;
-  transition: 0.2s;
 }
 
 .button:disabled {

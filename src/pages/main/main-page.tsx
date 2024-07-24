@@ -10,6 +10,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Flyout from '../../components/flyout/flyout';
 import api from '../../api/api';
 import isValidPageNumber from '../../utils/is-valid-page-number';
+import ThemeButton from '../../components/theme-button/theme-button';
 
 function MainPage(): ReactNode {
   const [isNextDisabled, setIsNextDisabled] = useState(false);
@@ -56,6 +57,7 @@ function MainPage(): ReactNode {
         navigate(`/?${searchParams.toString()}`);
       }}
     >
+      <ThemeButton />
       <SearchSection />
       <ResultsSection results={response?.results} />
       <Pagination isNextDisabled={isNextDisabled} isPrevDisabled={isPrevDisabled} />

@@ -1,9 +1,15 @@
 :root {
   --color-text: #4b6f85;
+  --color-bg: #a2bbcb;
   font-family: Inter, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #283a46;
+
+  &:has(.dark-theme) {
+    --color-text: tomato;
+    --color-bg: #4b6f85;
+  }
 }
 
 body {
@@ -13,7 +19,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #a2bbcb;
+  background-color: var(--color-bg);
 }
 
 button {

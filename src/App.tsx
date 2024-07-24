@@ -5,26 +5,39 @@ import ErrorBoundary from './error-boundary';
 import FallbackUi from './components/fallback-ui/fallback-ui';
 import Card from './components/card/card';
 import NotFoundPage from './pages/not-found/not-found-page';
+import { createContext, useState } from 'react';
+
+export const ThemeContext = createContext({ isLightThemeSet: true, toggleLightTheme: () => {} });
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ErrorBoundary fallback={<FallbackUi />}>
-              <MainPage />
-              <Outlet></Outlet>
-            </ErrorBoundary>
-          }
-        >
-          <Route path="details/:charId" element={<Card />}></Route>
-        </Route>
+  const [isLightThemeSet, setIsLightThemeSet] = useState(true);
 
-        <Route path="*" element={<NotFoundPage />}></Route>
-      </Routes>
-    </BrowserRouter>
+  function toggleLightTheme() {
+    setIsLightThemeSet(!isLightThemeSet);
+  }
+
+  return (
+    <ThemeContext.Provider value={{ isLightThemeSet, toggleLightTheme }}>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ErrorBoundary fallback={<FallbackUi />}>
+                <div className={isLightThemeSet ? '' : 'dark-theme'}>
+                  <MainPage />
+                  <Outlet></Outlet>
+                </div>
+              </ErrorBoundary>
+            }
+          >
+            <Route path="details/:charId" element={<Card />}></Route>
+          </Route>
+
+          <Route path="*" element={<NotFoundPage />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeContext.Provider>
   );
 }
 

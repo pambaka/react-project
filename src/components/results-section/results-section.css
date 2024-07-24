@@ -1,6 +1,6 @@
 .results-section {
   width: 100%;
-  height: calc(100vh - 4rem - 40px * 2 - 20px * 2);
+  height: calc(100vh - 4rem - 40px * 2 - 20px * 2 - 40px);
   min-height: 200px;
   padding: 10px 5px;
   display: flex;
