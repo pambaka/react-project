@@ -9,11 +9,11 @@
   gap: 20px;
   border-radius: 4px;
   overflow-y: auto;
-  scrollbar-color: #d4e0e7 #fafbfc;
+  scrollbar-color: var(--color-gradient-2) var(--color-scroll-track);
   word-wrap: break-word;
 }
 
 .not-found {
   font-size: 1.2rem;
-  color: #787878;
+  color: var(--color-text);
 }

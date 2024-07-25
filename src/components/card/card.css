@@ -6,8 +6,7 @@
   min-height: 300px;
   padding: 20px;
   border-radius: 4px;
-  box-shadow: 0px 0px 5px gray;
-  background: radial-gradient(circle at 20% 40%, #e1eeed 0%, #d4e0e7 90%);
+  background: radial-gradient(circle at 20% 40%, var(--color-gradient-2) 0%, var(--color-gradient-1) 90%);
 }
 
 .close-button {

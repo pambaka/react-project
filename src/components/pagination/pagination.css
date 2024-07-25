@@ -11,8 +11,8 @@
     text-align: center;
     font-size: 1.2em;
     font-weight: 500;
-    color: #4b6f85;
-    text-shadow: 0 0 5px white;
+    color: var(--color-text);
+    text-shadow: 0 0 5px var(--color-text-shadow);
   }
 
   button {

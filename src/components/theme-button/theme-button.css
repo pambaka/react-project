@@ -12,7 +12,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: var(--color-text-button);
     transition: 0.2s;
 
     &:hover {
@@ -34,11 +34,11 @@ label {
 }
 
 label:has(input:checked) {
-  background-color: lightgray;
   cursor: default;
+  filter: grayscale() opacity(0.5);
 
   svg:hover {
-    color: white;
+    color: var(--color-text-button);
   }
 }
 

@@ -8,8 +8,8 @@
   padding: 5px 10px;
   border-radius: 4px;
   background-color: var(--color-bg);
-  box-shadow: 0 -4px 0 #89a9bc inset;
-  color: #fafbfc;
+  box-shadow: 0 -4px 0 var(--color-button-shadow) inset;
+  color: var(--color-text-button);
   font-size: 1.5rem;
   transition: 0.2s;
 }
@@ -17,8 +17,8 @@
 .button:active:not(:disabled) {
   height: calc(100% - 2px);
   box-shadow:
-    0 -2px 0 #bbcdd9,
-    0 -2px 0 #89a9bc inset;
+    0 -2px 0 var(--color-button-shadow-light),
+    0 -2px 0 var(--color-button-shadow) inset;
 }
 
 .button:disabled {

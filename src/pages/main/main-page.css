@@ -10,6 +10,6 @@
   align-items: center;
   gap: 20px;
   flex-shrink: 1.5;
-  background: radial-gradient(circle at 20% 40%, #e1eeed 0%, #d4e0e7 90%);
+  background: radial-gradient(circle at 20% 40%, var(--color-gradient-1) 0%, var(--color-gradient-2) 90%);
   border-radius: 4px;
 }
