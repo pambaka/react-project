@@ -1,0 +1,20 @@
+.card-detailed {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 50%;
+  min-height: 300px;
+  padding: 20px;
+  border-radius: 4px;
+  background: radial-gradient(circle at 20% 40%, var(--color-gradient-2) 0%, var(--color-gradient-1) 90%);
+}
+
+.close-button {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  background-image: url('../../assets/cross.svg');
+}

@@ -1,0 +1,15 @@
+.main-section {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  min-width: 300px;
+  padding: 1rem;
+  padding-top: calc(1rem + 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 1.5;
+  background: radial-gradient(circle at 20% 40%, var(--color-gradient-1) 0%, var(--color-gradient-2) 90%);
+  border-radius: 4px;
+}
