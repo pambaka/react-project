@@ -1,9 +1,42 @@
 :root {
   --color-text: #4b6f85;
+  --color-text-shadow: #fafbfc;
+  --color-text-button: #fafbfc;
+  --color-text-description: gray;
+  --color-bg: #a2bbcb;
+  --color-bg-light: #fafbfc;
+  --color-gradient-1: #e1eeed;
+  --color-gradient-2: #bbcdd9;
+  --color-shadow: gray;
+  --color-button-shadow: #89a9bc;
+  --color-button-shadow-light: #bbcdd9;
+  --color-button-disabled: lightgray;
+  --color-card-bg: none;
+  --color-checkbox: #638da8;
+  --color-scroll-track: #fafbfc;
+
+  &:has(.dark-theme) {
+    --color-text: #d8d8d8;
+    --color-text-shadow: #4b6f85;
+    --color-text-button: #d8d8d8;
+    --color-text-description: #b1b1b1;
+    --color-bg: #446479;
+    --color-bg-light: #d4e0e7;
+    --color-gradient-1: #4b7486;
+    --color-gradient-2: #4b6f86;
+    --color-shadow: #141414;
+    --color-button-shadow: #3d5a6c;
+    --color-button-shadow-light: #4b6f85;
+    --color-button-disabled: gray;
+    --color-card-bg: var(--color-bg);
+    --color-checkbox: #fed42d;
+    --color-scroll-track: #a9bac5;
+  }
+
   font-family: Inter, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #283a46;
+  color: var(--color-text);
 }
 
 body {
@@ -13,7 +46,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #a2bbcb;
+  background-color: var(--color-bg);
 }
 
 button {

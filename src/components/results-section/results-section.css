@@ -1,19 +1,19 @@
 .results-section {
   width: 100%;
-  height: calc(100vh - 40px * 2 - 20px * 3 - 50px);
+  height: calc(100vh - 4rem - 40px * 2 - 20px * 2 - 40px);
   min-height: 200px;
-  padding: 5px;
+  padding: 10px 5px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
   border-radius: 4px;
   overflow-y: auto;
-  scrollbar-color: #d4e0e7 #fafbfc;
+  scrollbar-color: var(--color-gradient-2) var(--color-scroll-track);
   word-wrap: break-word;
 }
 
 .not-found {
   font-size: 1.2rem;
-  color: #787878;
+  color: var(--color-text);
 }

@@ -1,0 +1,47 @@
+.theme-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 4px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-text-button);
+    transition: 0.2s;
+
+    &:hover {
+      color: #fed42d;
+    }
+  }
+}
+
+label {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-content: center;
+  background-color: var(--color-bg);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+label:has(input:checked) {
+  cursor: default;
+  filter: grayscale() opacity(0.5);
+
+  svg:hover {
+    color: var(--color-text-button);
+  }
+}
+
+input[type='radio'] {
+  appearance: none;
+}

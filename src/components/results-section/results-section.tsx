@@ -5,8 +5,7 @@ import { ReactNode } from 'react';
 
 function ResultsSection(props: { results: Character[] | undefined }): ReactNode {
   function renderContent(res: Character[] | undefined): ReactNode {
-    if (!res) return null;
-    else if (res.length === 0) return <div className="not-found">Nothing was found :(</div>;
+    if (!res || res.length === 0) return <div className="not-found">Nothing was found :(</div>;
     else return <Cards people={props.results}></Cards>;
   }
 

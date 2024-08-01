@@ -5,54 +5,52 @@ import changeCurrentPageNumber from './change-current-page-number';
 import { PageAction } from '../../types';
 import { useSearchParams } from 'react-router-dom';
 import { PARAM } from '../../consts';
+import getValidPageNumber from '../../utils/get-valid-page-number';
 
-function Pagination(props: {
-  fetchData: (searchValue: string, pageNumber?: number) => Promise<void>;
+function Pagination({
+  isNextDisabled,
+  isPrevDisabled,
+}: {
   isNextDisabled: boolean;
   isPrevDisabled: boolean;
 }): ReactNode {
   const [searchParams, setSearchParams] = useSearchParams({});
   const [currentPage, setCurrentPage] = useState(() => {
-    const pageNum = Number(searchParams.get(PARAM.page));
-    return pageNum;
+    const page = searchParams.get(PARAM.page);
+    return getValidPageNumber(page);
   });
 
-  function updateCurrentPage(prevPage: number, action: PageAction) {
+  useEffect(() => {
+    const page = searchParams.get(PARAM.page);
+    setCurrentPage(getValidPageNumber(page));
+  }, [searchParams]);
+
+  function updateCurrentPageNumber(action: PageAction) {
+    const page = searchParams.get(PARAM.page);
+    const prevPage = getValidPageNumber(page);
+
     const newPage = changeCurrentPageNumber(prevPage, action);
 
     const searchValue = searchParams.get(PARAM.search) ?? '';
-    if (newPage !== prevPage) {
-      const func = async () => {
-        await props.fetchData(searchValue, newPage);
-      };
 
-      func().catch(() => {});
-    }
-
-    setSearchParams({ search: searchValue, page: `${newPage}` });
-    return newPage;
+    setSearchParams({ [PARAM.search]: searchValue, [PARAM.page]: `${newPage}` });
   }
 
   function showPreviousPage(event: React.MouseEvent<HTMLElement>) {
     event.stopPropagation();
-    setCurrentPage((prevPage) => updateCurrentPage(prevPage, 'decrement'));
+    updateCurrentPageNumber('decrement');
   }
 
   function showNextPage(event: React.MouseEvent<HTMLElement>) {
     event.stopPropagation();
-    setCurrentPage((prevPage) => updateCurrentPage(prevPage, 'increment'));
+    updateCurrentPageNumber('increment');
   }
-
-  useEffect(() => {
-    const pageNum = Number(searchParams.get(PARAM.page));
-    setCurrentPage(pageNum ? pageNum : 1);
-  }, [searchParams]);
 
   return (
     <div className="pagination">
-      <Button buttonText="<" callback={showPreviousPage} isDisabled={props.isPrevDisabled} />
+      <Button buttonText="<" callback={showPreviousPage} isDisabled={isPrevDisabled} />
       <p>{currentPage}</p>
-      <Button buttonText=">" callback={showNextPage} isDisabled={props.isNextDisabled} />
+      <Button buttonText=">" callback={showNextPage} isDisabled={isNextDisabled} />
     </div>
   );
 }
